@@ -80,16 +80,16 @@ public class Corredor extends Thread{
     @SuppressWarnings("empty-statement")
     public void run(){
         if(cantidad == 0){
-            System.out.print(this.getEquipo()+"Corredor 1:");                    
+            //System.out.print(this.getEquipo()+"Corredor 1:");                    
             this.avanzandoCorredor((byte) 1);
         }
         else if( cantidad == 34){                               
             this.avanzandoCorredor((byte) 2);
-            System.out.print(this.getEquipo()+"Corredor 2:"); 
+            //System.out.print(this.getEquipo()+"Corredor 2:"); 
         }
         else if( cantidad == 67){                               
             this.avanzandoCorredor((byte) 3);
-            System.out.print(this.getEquipo()+"Corredor 3:"); 
+            //System.out.print(this.getEquipo()+"Corredor 3:"); 
         }
         else{
             this.esperar();
@@ -152,7 +152,30 @@ public class Corredor extends Thread{
             } catch (InterruptedException ex) {
                 Logger.getLogger(Corredor.class.getName()).log(Level.SEVERE, null, ex);                        
         }
-        System.out.print(this.getEquipo()+"_"+ this.getCantidadCorrida());   
+        //System.out.print(this.getEquipo()+"_"+ this.getCantidadCorrida()); 
+        String imprime = impresion();
+        System.out.println(imprime);
         return this.getCantidadCorrida();
-    }   
+    }
+    /**
+     * Metodo que hace la impresion de la carrera, la guarda en un cadena
+     * y la envia
+     * @return 
+     */
+    public synchronized String impresion(){
+        String imprimir="";
+        imprimir = "\nEquipo: " +this.getEquipo()+ " ";
+        for (int i = 0; i <= 100; i++) {
+            if (i == 33) {
+                imprimir += "*";
+            } else if (i == 66) {
+                imprimir += "*";
+            } else if (i == this.getCantidadCorrida()) {
+                imprimir += "x";
+            } else {
+                imprimir += "_";
+            }
+        } 
+        return imprimir;
+    }
 }
